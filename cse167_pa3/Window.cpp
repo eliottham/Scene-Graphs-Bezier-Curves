@@ -1,8 +1,7 @@
 #include "Window.h"
 
 const char* window_title = "GLFW Starter Project";
-Cube * cube;
-GLint shaderProgram;
+GLint shaderProgram, skyboxShader;
 
 // On some systems you need to change this to the absolute path
 #define VERTEX_SHADER_PATH "./shader.vert"
@@ -24,21 +23,34 @@ glm::mat4 Window::P;
 glm::mat4 Window::V;
 
 OBJObject* bunny;
+Skybox* skybox;
+vector<string> skybox_faces = {
+    "./right.jpg",
+    "./left.jpg",
+    "./top.jpg",
+    "./bottom.jpg",
+    "./front.jpg",
+    "./back.jpg"
+};
 
 void Window::initialize_objects()
 {
-	cube = new Cube();
     bunny = new OBJObject("./bunny.obj");
+    skybox = new Skybox(skybox_faces);
 	// Load the shader program. Make sure you have the correct filepath up top
 	shaderProgram = LoadShaders(VERTEX_SHADER_PATH, FRAGMENT_SHADER_PATH);
+    skyboxShader = LoadShaders("./skybox_shader.vert", "./skybox_shader.frag");
+    glUseProgram(skyboxShader);
+    glUniform1i(glGetUniformLocation(skyboxShader, "skybox"), 0);
 }
 
 // Treat this as a destructor function. Delete dynamically allocated memory here.
 void Window::clean_up()
 {
-	delete(cube);
     delete(bunny);
+    delete(skybox);
 	glDeleteProgram(shaderProgram);
+    glDeleteProgram(skyboxShader);
 }
 
 GLFWwindow* Window::create_window(int width, int height)
@@ -107,24 +119,23 @@ void Window::resize_callback(GLFWwindow* window, int width, int height)
 
 void Window::idle_callback()
 {
-	// Call the update function the cube
-	//cube->update();
 }
 
 void Window::display_callback(GLFWwindow* window)
 {
+    // Clear the color and depth buffers
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    
     Window::V = glm::lookAt(cam_pos, cam_look_at, cam_up);
-   
-	// Clear the color and depth buffers
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
 	// Use the shader of programID
-	glUseProgram(shaderProgram);
-	
-	// Render the cube
-     bunny->draw(shaderProgram);
-	//cube->draw(shaderProgram);
-
+	//glUseProgram(shaderProgram);
+    //bunny->draw(shaderProgram);
+    
+    glDepthFunc(GL_LEQUAL);
+    glUseProgram(skyboxShader);
+    skybox->draw(skyboxShader);
+    glDepthFunc(GL_LESS);
+    
 	// Gets events, including input such as keyboard and mouse or window resizing
 	glfwPollEvents();
 	// Swap buffers
