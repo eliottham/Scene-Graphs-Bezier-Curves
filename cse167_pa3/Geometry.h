@@ -36,11 +36,15 @@ private:
     std::vector<Vertex> vertices;
     GLuint VAO, VBO, EBO;
     GLuint uProjection, uModelview;
+    float degree;
+    float inc;
 public:
     Geometry(const char* filepath);
     ~Geometry();
     void parse(const char* filepath);
     void draw(glm::mat4 C);
+    float findPivotPoint();
+    void update();
 };
 
 #endif /* Geometry_h */

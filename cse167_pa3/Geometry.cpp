@@ -2,6 +2,7 @@
 
 Geometry::Geometry(const char* filepath)
 {
+    inc = 1;
     parse(filepath);
     
     glGenVertexArrays(1, &VAO);
@@ -95,4 +96,20 @@ void Geometry::draw(glm::mat4 C)
     glBindVertexArray(VAO);
     glDrawElements(GL_TRIANGLES, (GLsizei)indices.size(), GL_UNSIGNED_INT, 0);
     glBindVertexArray(0);
+}
+
+// Helper function to get the pivot point of the "limb" obj
+float Geometry::findPivotPoint()
+{
+    float z_dist = 0.0f;
+    for(auto it = vpositions.begin(); it != vpositions.end(); ++it) {
+        if(it->z > z_dist) {
+            z_dist = it->z;
+        }
+    }
+    return z_dist;
+}
+
+void Geometry::update()
+{
 }

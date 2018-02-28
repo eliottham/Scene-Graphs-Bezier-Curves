@@ -25,7 +25,11 @@ class Transform : public Node
 {
 private:
     glm::mat4 M;
+    glm::mat4 original_M;
     list<Node*> children;
+    float degree;
+    float angle;
+    float pivot;
 public:
     Transform(glm::mat4 transformation);
     ~Transform();
@@ -33,6 +37,8 @@ public:
     void removeChild(Node* child);
     void draw(glm::mat4 C);
     void changeM(glm::mat4 transformation);
+    void setAnimate(float degree, float start_angle, float pivot);
+    void update();
 };
     
 

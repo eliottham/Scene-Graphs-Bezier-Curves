@@ -24,7 +24,7 @@ glm::mat4 Window::V;
 GLuint Window::robotShader;
 
 Skybox* skybox;
-Transform* robot;
+Transform* squad;
 
 vector<string> skybox_faces = {
     "./right.jpg",
@@ -37,6 +37,8 @@ vector<string> skybox_faces = {
 
 // Function declaration for creating a robot
 Transform* makeRobot();
+// Function declaration for creating a robot squad
+Transform* makeRobotSquad();
 
 void Window::initialize_objects()
 {
@@ -46,14 +48,15 @@ void Window::initialize_objects()
     glUseProgram(skyboxShader);
     glUniform1i(glGetUniformLocation(skyboxShader, "skybox"), 0);
     
-    robot = makeRobot();
+    squad = makeRobotSquad();
+
 }
 
 // Treat this as a destructor function. Delete dynamically allocated memory here.
 void Window::clean_up()
 {
     delete(skybox);
-    delete(robot);
+    delete(squad);
     glDeleteProgram(Window::robotShader);
     glDeleteProgram(skyboxShader);
 }
@@ -124,6 +127,7 @@ void Window::resize_callback(GLFWwindow* window, int width, int height)
 
 void Window::idle_callback()
 {
+    squad->update();
 }
 
 void Window::display_callback(GLFWwindow* window)
@@ -135,7 +139,7 @@ void Window::display_callback(GLFWwindow* window)
     
 	// Use the shader of programID
     glUseProgram(Window::robotShader);
-    robot->draw(glm::mat4(1.0f));
+    squad->draw(glm::mat4(1.0f));
     
     glDepthFunc(GL_LEQUAL);
     glUseProgram(skyboxShader);
@@ -249,7 +253,6 @@ Transform* makeRobot()
                                         glm::rotate(glm::mat4(1.0f),
                                                     glm::radians(-90.0f),
                                                     glm::vec3(1.0f, 0.0f, 0.0f)));
-
     body2wld->addChild(new Geometry("./body.obj"));
     robot->addChild(body2wld);
     
@@ -276,30 +279,55 @@ Transform* makeRobot()
     
     // Limbs of robot in terms of body coordinates
     Geometry* limb = new Geometry("./limb.obj");
-    
+    float pivot = limb->findPivotPoint(); // Pivot point for the limbs
+
     // Left arm
     Transform* l_arm2body = new Transform(glm::mat4(1.0f));
+     
     l_arm2body->addChild(limb);
+    l_arm2body->setAnimate(1.0f, 45.0f, pivot);
     body2wld->addChild(l_arm2body);
     
     // Right arm
     Transform* r_arm2body = new Transform(glm::translate(glm::mat4(1.0f),
                                                          glm::vec3(53.5f, 0.0f, 0.0f)));
     r_arm2body->addChild(limb);
+    r_arm2body->setAnimate(-1.0f, -45.0f, pivot);
     body2wld->addChild(r_arm2body);
     
     // Left leg
     Transform* l_leg2body = new Transform(glm::translate(glm::mat4(1.0f),
                                                          glm::vec3(17.5f, 0.0f, -45.0f)));
     l_leg2body->addChild(limb);
+    l_leg2body->setAnimate(1.0f, 45.0f, pivot);
     body2wld->addChild(l_leg2body);
     
     // Right leg
     Transform* r_leg2body = new Transform(glm::translate(glm::mat4(1.0f),
                                                          glm::vec3(37.0f, 0.0f, -45.0f)));
     r_leg2body->addChild(limb);
+    r_leg2body->setAnimate(-1.0f, -45.0f, pivot);
     body2wld->addChild(r_leg2body);
     
-    
     return robot;
+}
+
+Transform* makeRobotSquad()
+{
+    Transform* group = new Transform(glm::mat4(1.0f));
+    Transform* robot = makeRobot();
+    // Create a 5 x 5 squad of robots
+    float x_dist = 75.0f;
+    float z_dist = 75.0f; // y_dist is z-depth due to original orientation of robot
+    for(unsigned int i = 0; i < 5; i++) {
+        for(unsigned int j = 0; j < 5; j++) {
+            Transform* temp = new Transform(glm::translate(glm::mat4(1.0f),
+                                                           glm::vec3((float) i * x_dist,
+                                                                     0.0f,
+                                                                     (float) j * z_dist)));
+            temp->addChild(robot);
+            group->addChild(temp);
+        }
+    }
+    return group;
 }
