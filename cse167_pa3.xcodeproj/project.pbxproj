@@ -16,7 +16,6 @@
 		552779BA20437AF20026D1C1 /* Window.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 552779B920437AF20026D1C1 /* Window.cpp */; };
 		552779C0204383AC0026D1C1 /* Transform.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 552779BF204383AC0026D1C1 /* Transform.cpp */; };
 		552779C320438A790026D1C1 /* Geometry.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 552779C220438A790026D1C1 /* Geometry.cpp */; };
-		552779D620456C740026D1C1 /* antenna.obj in CopyFiles */ = {isa = PBXBuildFile; fileRef = 552779D120456C730026D1C1 /* antenna.obj */; };
 		552779D720456C740026D1C1 /* eyeball.obj in CopyFiles */ = {isa = PBXBuildFile; fileRef = 552779D220456C730026D1C1 /* eyeball.obj */; };
 		552779D820456C740026D1C1 /* body.obj in CopyFiles */ = {isa = PBXBuildFile; fileRef = 552779D320456C730026D1C1 /* body.obj */; };
 		552779D920456C740026D1C1 /* head.obj in CopyFiles */ = {isa = PBXBuildFile; fileRef = 552779D420456C730026D1C1 /* head.obj */; };
@@ -39,7 +38,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 16;
 			files = (
-				552779D620456C740026D1C1 /* antenna.obj in CopyFiles */,
 				552779D720456C740026D1C1 /* eyeball.obj in CopyFiles */,
 				552779D820456C740026D1C1 /* body.obj in CopyFiles */,
 				552779D920456C740026D1C1 /* head.obj in CopyFiles */,
@@ -73,7 +71,6 @@
 		552779BF204383AC0026D1C1 /* Transform.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Transform.cpp; sourceTree = "<group>"; };
 		552779C12043896D0026D1C1 /* Geometry.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Geometry.h; sourceTree = "<group>"; };
 		552779C220438A790026D1C1 /* Geometry.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Geometry.cpp; sourceTree = "<group>"; };
-		552779D120456C730026D1C1 /* antenna.obj */ = {isa = PBXFileReference; lastKnownFileType = text; name = antenna.obj; path = cse167_pa3/antenna.obj; sourceTree = "<group>"; };
 		552779D220456C730026D1C1 /* eyeball.obj */ = {isa = PBXFileReference; lastKnownFileType = text; name = eyeball.obj; path = cse167_pa3/eyeball.obj; sourceTree = "<group>"; };
 		552779D320456C730026D1C1 /* body.obj */ = {isa = PBXFileReference; lastKnownFileType = text; name = body.obj; path = cse167_pa3/body.obj; sourceTree = "<group>"; };
 		552779D420456C730026D1C1 /* head.obj */ = {isa = PBXFileReference; lastKnownFileType = text; name = head.obj; path = cse167_pa3/head.obj; sourceTree = "<group>"; };
@@ -110,7 +107,6 @@
 		55AA84B12042359A00383A0F = {
 			isa = PBXGroup;
 			children = (
-				552779D120456C730026D1C1 /* antenna.obj */,
 				552779D320456C730026D1C1 /* body.obj */,
 				552779D220456C730026D1C1 /* eyeball.obj */,
 				552779D420456C730026D1C1 /* head.obj */,

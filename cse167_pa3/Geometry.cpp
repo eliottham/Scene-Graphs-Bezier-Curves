@@ -75,7 +75,7 @@ void Geometry::parse(const char* filepath)
     for(int i = 0; i < vpositions.size(); i++) {
         Vertex v;
         v.position = vpositions[i];
-        v.color = glm::normalize(vnormals[i]) * 0.5f + 0.5f; // Normal coloring
+        v.color = glm::normalize(vnormals[i]);// * 0.5f + 0.5f; // Normal coloring
         v.normal = vnormals[i];
         
         vertices.push_back(v);

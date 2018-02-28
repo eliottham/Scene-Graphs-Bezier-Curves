@@ -35,6 +35,9 @@ vector<string> skybox_faces = {
     "./back.jpg"
 };
 
+// Function declaration for creating a robot
+Transform* makeRobot();
+
 void Window::initialize_objects()
 {
     skybox = new Skybox(skybox_faces);
@@ -43,104 +46,7 @@ void Window::initialize_objects()
     glUseProgram(skyboxShader);
     glUniform1i(glGetUniformLocation(skyboxShader, "skybox"), 0);
     
-    // Group to hold robot scene graph
-    robot = new Transform(glm::mat4(1.0f));
-    
-    // Body of robot
-    Transform* body_rot = new Transform(glm::rotate(glm::mat4(1.0f),
-                                                    glm::radians(180.0f),
-                                                    glm::vec3(0.0f, 0.0f, 1.0f)) *
-                                        glm::rotate(glm::mat4(1.0f),
-                                                    glm::radians(90.0f),
-                                                    glm::vec3(1.0f, 0.0f, 0.0f)));
-    Transform* body_trans = new Transform(glm::translate(glm::mat4(1.0f),
-                                                        glm::vec3(0.0f, -50.0f, 0.0f)));
-    body_rot->addChild(new Geometry("./body.obj"));
-    body_trans->addChild(body_rot);
-    robot->addChild(body_trans);
-    
-    
-    // Head of robot
-    Transform* head_rot = new Transform(glm::rotate(glm::mat4(1.0f),
-                                                    glm::radians(180.0f),
-                                                    glm::vec3(0.0f, 0.0f, 1.0f)) *
-                                        glm::rotate(glm::mat4(1.0f),
-                                                    glm::radians(90.0f),
-                                                    glm::vec3(1.0f, 0.0f, 0.0f)));
-                                       
-    Transform* head_trans = new Transform(glm::translate(glm::mat4(1.0f),
-                                                         glm::vec3(0.0f, -52.5f, 0.0f)));
-    head_rot->addChild(new Geometry("./head.obj"));
-    head_trans->addChild(head_rot);
-    robot->addChild(head_trans);
-
-    // Left eye of robot
-    Geometry* eyeball = new Geometry("./eyeball.obj");
-    Transform* l_eye_trans = new Transform(glm::translate(glm::mat4(1.0f),
-                                                        glm::vec3(-7.5f, 50.0f, 12.5f)));
-    l_eye_trans->addChild(eyeball);
-    robot->addChild(l_eye_trans);
-    
-    // Right eye of robot
-    Transform* r_eye_trans = new Transform(glm::translate(glm::mat4(1.0f),
-                                                          glm::vec3(7.5f, 50.0f, 12.5f)));
-    r_eye_trans->addChild(eyeball);
-    robot->addChild(r_eye_trans);
-    
-    // Left arm of robot
-    Geometry* limb = new Geometry("./limb.obj");
-    Transform* l_arm_rot = new Transform(glm::rotate(glm::mat4(1.0f),
-                                                   glm::radians(180.0f),
-                                                   glm::vec3(0.0f, 0.0f, 1.0f)) *
-                                       glm::rotate(glm::mat4(1.0f),
-                                                   glm::radians(90.0f),
-                                                   glm::vec3(1.0f, 0.0f, 0.0f)));
-    Transform* l_arm_trans = new Transform(glm::translate(glm::mat4(1.0f),
-                                                          glm::vec3(-53.5f, -55.0f, 0.0f)));
-    l_arm_rot->addChild(limb);
-    l_arm_trans->addChild(l_arm_rot);
-    robot->addChild(l_arm_trans);
-    
-    // Right arm of robot
-    Transform* r_arm_rot = new Transform(glm::rotate(glm::mat4(1.0f),
-                                                     glm::radians(180.0f),
-                                                     glm::vec3(0.0f, 0.0f, 1.0f)) *
-                                         glm::rotate(glm::mat4(1.0f),
-                                                     glm::radians(90.0f),
-                                                     glm::vec3(1.0f, 0.0f, 0.0f)));
-    Transform* r_arm_trans = new Transform(glm::translate(glm::mat4(1.0f),
-                                                          glm::vec3(0.0f, -55.0f, 0.0f)));
-    r_arm_rot->addChild(limb);
-    r_arm_trans->addChild(r_arm_rot);
-    robot->addChild(r_arm_trans);
-    
-    // Left leg of robot
-    Transform* l_leg_rot = new Transform(glm::rotate(glm::mat4(1.0f),
-                                                     glm::radians(180.0f),
-                                                     glm::vec3(0.0f, 0.0f, 1.0f)) *
-                                         glm::rotate(glm::mat4(1.0f),
-                                                     glm::radians(90.0f),
-                                                     glm::vec3(1.0f, 0.0f, 0.0f)));
-    Transform* l_leg_trans = new Transform(glm::translate(glm::mat4(1.0f),
-                                                          glm::vec3(-38.5f, -95.0f, 0.0f)));
-    l_leg_rot->addChild(limb);
-    l_leg_trans->addChild(l_leg_rot);
-    robot->addChild(l_leg_trans);
-    
-    // Right leg of robot
-    Transform* r_leg_rot = new Transform(glm::rotate(glm::mat4(1.0f),
-                                                     glm::radians(180.0f),
-                                                     glm::vec3(0.0f, 0.0f, 1.0f)) *
-                                         glm::rotate(glm::mat4(1.0f),
-                                                     glm::radians(90.0f),
-                                                     glm::vec3(1.0f, 0.0f, 0.0f)));
-    Transform* r_leg_trans = new Transform(glm::translate(glm::mat4(1.0f),
-                                                          glm::vec3(-15.5f, -95.0f, 0.0f)));
-    r_leg_rot->addChild(limb);
-    r_leg_trans->addChild(r_leg_rot);
-    robot->addChild(r_leg_trans);
-    
-    
+    robot = makeRobot();
 }
 
 // Treat this as a destructor function. Delete dynamically allocated memory here.
@@ -324,4 +230,76 @@ void Window::mouse_button_callback(GLFWwindow* window, int button, int action, i
 void Window::scroll_callback(GLFWwindow* window, double xoffset, double yoffset)
 {
     cam_pos = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.0f, yoffset)) * glm::vec4(cam_pos, 1.0f);
+}
+
+
+Transform* makeRobot()
+{
+    /* Right/Left Y-axis/Z-axis are swapped in labels/transformations because
+       original robot layout has to be rotated about x-axis by -90 and y-axis by 180 */
+    // Group to hold the robot scene graph
+    Transform* robot = new Transform(glm::mat4(1.0f));
+    
+    // Body of robot in world coordinates
+    Transform* body2wld = new Transform(glm::translate(glm::mat4(1.0f),
+                                                       glm::vec3(0.0f, -50.0f, 0.0f)) *
+                                        glm::rotate(glm::mat4(1.0f),
+                                                    glm::radians(180.0f),
+                                                    glm::vec3(0.0f, 1.0f, 0.0f)) *
+                                        glm::rotate(glm::mat4(1.0f),
+                                                    glm::radians(-90.0f),
+                                                    glm::vec3(1.0f, 0.0f, 0.0f)));
+
+    body2wld->addChild(new Geometry("./body.obj"));
+    robot->addChild(body2wld);
+    
+    // Head of robot in terms of body coordinates
+    Transform* head2body = new Transform(glm::translate(glm::mat4(1.0f),
+                                                        glm::vec3(0.0f, 0.0f, -2.0f)));
+    head2body->addChild(new Geometry("./head.obj"));
+    body2wld->addChild(head2body);
+    
+    // Eyes of robot in terms of head coordinates
+    Geometry* eye = new Geometry("./eyeball.obj");
+    
+    // Left eye
+    Transform* l_eye2head = new Transform(glm::translate(glm::mat4(1.0f),
+                                                         glm::vec3(-7.5f, 29.0f, 85.0f)));
+    l_eye2head->addChild(eye);
+    head2body->addChild(l_eye2head);
+    
+    // Right eye
+    Transform* r_eye2head = new Transform(glm::translate(glm::mat4(1.0f),
+                                                         glm::vec3(7.5f, 29.0f, 85.0f)));
+    r_eye2head->addChild(eye);
+    head2body->addChild(r_eye2head);
+    
+    // Limbs of robot in terms of body coordinates
+    Geometry* limb = new Geometry("./limb.obj");
+    
+    // Left arm
+    Transform* l_arm2body = new Transform(glm::mat4(1.0f));
+    l_arm2body->addChild(limb);
+    body2wld->addChild(l_arm2body);
+    
+    // Right arm
+    Transform* r_arm2body = new Transform(glm::translate(glm::mat4(1.0f),
+                                                         glm::vec3(53.5f, 0.0f, 0.0f)));
+    r_arm2body->addChild(limb);
+    body2wld->addChild(r_arm2body);
+    
+    // Left leg
+    Transform* l_leg2body = new Transform(glm::translate(glm::mat4(1.0f),
+                                                         glm::vec3(17.5f, 0.0f, -45.0f)));
+    l_leg2body->addChild(limb);
+    body2wld->addChild(l_leg2body);
+    
+    // Right leg
+    Transform* r_leg2body = new Transform(glm::translate(glm::mat4(1.0f),
+                                                         glm::vec3(37.0f, 0.0f, -45.0f)));
+    r_leg2body->addChild(limb);
+    body2wld->addChild(r_leg2body);
+    
+    
+    return robot;
 }
