@@ -11,8 +11,10 @@
 #endif
 #include <GLFW/glfw3.h>
 #include "shader.h"
-#include "OBJObject.h"
 #include "Skybox.h"
+#include "Node.h"
+#include "Transform.h"
+#include "Geometry.h"
 
 class Window
 {
@@ -34,6 +36,7 @@ public:
     static void mouse_button_callback(GLFWwindow* window, int button, int action, int mods);
     static void scroll_callback(GLFWwindow* window, double xoffset, double yoffset);
     static void cursor_pos_callback(GLFWwindow *window, double x, double y);
+    static GLuint robotShader;
 };
 
 #endif

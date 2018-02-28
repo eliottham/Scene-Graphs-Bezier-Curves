@@ -14,13 +14,17 @@
 		552779B720437AC60026D1C1 /* front.jpg in CopyFiles */ = {isa = PBXBuildFile; fileRef = 552779B120437AC60026D1C1 /* front.jpg */; };
 		552779B820437AC60026D1C1 /* right.jpg in CopyFiles */ = {isa = PBXBuildFile; fileRef = 552779B220437AC60026D1C1 /* right.jpg */; };
 		552779BA20437AF20026D1C1 /* Window.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 552779B920437AF20026D1C1 /* Window.cpp */; };
-		552779BD20437D5E0026D1C1 /* Node.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 552779BB20437D5E0026D1C1 /* Node.cpp */; };
+		552779C0204383AC0026D1C1 /* Transform.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 552779BF204383AC0026D1C1 /* Transform.cpp */; };
+		552779C320438A790026D1C1 /* Geometry.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 552779C220438A790026D1C1 /* Geometry.cpp */; };
+		552779D620456C740026D1C1 /* antenna.obj in CopyFiles */ = {isa = PBXBuildFile; fileRef = 552779D120456C730026D1C1 /* antenna.obj */; };
+		552779D720456C740026D1C1 /* eyeball.obj in CopyFiles */ = {isa = PBXBuildFile; fileRef = 552779D220456C730026D1C1 /* eyeball.obj */; };
+		552779D820456C740026D1C1 /* body.obj in CopyFiles */ = {isa = PBXBuildFile; fileRef = 552779D320456C730026D1C1 /* body.obj */; };
+		552779D920456C740026D1C1 /* head.obj in CopyFiles */ = {isa = PBXBuildFile; fileRef = 552779D420456C730026D1C1 /* head.obj */; };
+		552779DA20456C740026D1C1 /* limb.obj in CopyFiles */ = {isa = PBXBuildFile; fileRef = 552779D520456C730026D1C1 /* limb.obj */; };
 		55AA84BE2042359B00383A0F /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 55AA84BD2042359B00383A0F /* main.cpp */; };
 		55AA84D4204244D300383A0F /* shader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 55AA84D0204244D300383A0F /* shader.cpp */; };
 		55AA84D9204245E300383A0F /* shader.frag in CopyFiles */ = {isa = PBXBuildFile; fileRef = 55AA84D2204244D300383A0F /* shader.frag */; };
 		55AA84DA204245E300383A0F /* shader.vert in CopyFiles */ = {isa = PBXBuildFile; fileRef = 55AA84D1204244D300383A0F /* shader.vert */; };
-		55AA84DD204246BD00383A0F /* OBJObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 55AA84DB204246BC00383A0F /* OBJObject.cpp */; };
-		55AA84DF2042471900383A0F /* bunny.obj in CopyFiles */ = {isa = PBXBuildFile; fileRef = 55AA84DE2042471900383A0F /* bunny.obj */; };
 		55AA84E32042543800383A0F /* Skybox.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 55AA84E22042543800383A0F /* Skybox.cpp */; };
 		55AA85072042912800383A0F /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55AA84C92042393B00383A0F /* OpenGL.framework */; };
 		55AA85082042913B00383A0F /* libglfw.3.2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 55AA84CB204239DA00383A0F /* libglfw.3.2.dylib */; };
@@ -35,6 +39,11 @@
 			dstPath = "";
 			dstSubfolderSpec = 16;
 			files = (
+				552779D620456C740026D1C1 /* antenna.obj in CopyFiles */,
+				552779D720456C740026D1C1 /* eyeball.obj in CopyFiles */,
+				552779D820456C740026D1C1 /* body.obj in CopyFiles */,
+				552779D920456C740026D1C1 /* head.obj in CopyFiles */,
+				552779DA20456C740026D1C1 /* limb.obj in CopyFiles */,
 				552779B320437AC60026D1C1 /* bottom.jpg in CopyFiles */,
 				552779B420437AC60026D1C1 /* back.jpg in CopyFiles */,
 				552779B520437AC60026D1C1 /* top.jpg in CopyFiles */,
@@ -43,7 +52,6 @@
 				552779B820437AC60026D1C1 /* right.jpg in CopyFiles */,
 				55AA850A2042934E00383A0F /* skybox_shader.frag in CopyFiles */,
 				55AA850B2042934E00383A0F /* skybox_shader.vert in CopyFiles */,
-				55AA84DF2042471900383A0F /* bunny.obj in CopyFiles */,
 				55AA84D9204245E300383A0F /* shader.frag in CopyFiles */,
 				55AA84DA204245E300383A0F /* shader.vert in CopyFiles */,
 			);
@@ -60,8 +68,16 @@
 		552779B120437AC60026D1C1 /* front.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = front.jpg; path = cse167_pa3/front.jpg; sourceTree = "<group>"; };
 		552779B220437AC60026D1C1 /* right.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = right.jpg; path = cse167_pa3/right.jpg; sourceTree = "<group>"; };
 		552779B920437AF20026D1C1 /* Window.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Window.cpp; sourceTree = "<group>"; };
-		552779BB20437D5E0026D1C1 /* Node.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Node.cpp; sourceTree = "<group>"; };
 		552779BC20437D5E0026D1C1 /* Node.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Node.h; sourceTree = "<group>"; };
+		552779BE204380F10026D1C1 /* Transform.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Transform.h; sourceTree = "<group>"; };
+		552779BF204383AC0026D1C1 /* Transform.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Transform.cpp; sourceTree = "<group>"; };
+		552779C12043896D0026D1C1 /* Geometry.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Geometry.h; sourceTree = "<group>"; };
+		552779C220438A790026D1C1 /* Geometry.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Geometry.cpp; sourceTree = "<group>"; };
+		552779D120456C730026D1C1 /* antenna.obj */ = {isa = PBXFileReference; lastKnownFileType = text; name = antenna.obj; path = cse167_pa3/antenna.obj; sourceTree = "<group>"; };
+		552779D220456C730026D1C1 /* eyeball.obj */ = {isa = PBXFileReference; lastKnownFileType = text; name = eyeball.obj; path = cse167_pa3/eyeball.obj; sourceTree = "<group>"; };
+		552779D320456C730026D1C1 /* body.obj */ = {isa = PBXFileReference; lastKnownFileType = text; name = body.obj; path = cse167_pa3/body.obj; sourceTree = "<group>"; };
+		552779D420456C730026D1C1 /* head.obj */ = {isa = PBXFileReference; lastKnownFileType = text; name = head.obj; path = cse167_pa3/head.obj; sourceTree = "<group>"; };
+		552779D520456C730026D1C1 /* limb.obj */ = {isa = PBXFileReference; lastKnownFileType = text; name = limb.obj; path = cse167_pa3/limb.obj; sourceTree = "<group>"; };
 		55AA84BA2042359B00383A0F /* cse167_pa3 */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = cse167_pa3; sourceTree = BUILT_PRODUCTS_DIR; };
 		55AA84BD2042359B00383A0F /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		55AA84C52042380C00383A0F /* Window.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Window.h; sourceTree = "<group>"; };
@@ -72,9 +88,6 @@
 		55AA84D1204244D300383A0F /* shader.vert */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = shader.vert; sourceTree = "<group>"; };
 		55AA84D2204244D300383A0F /* shader.frag */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = shader.frag; sourceTree = "<group>"; };
 		55AA84D3204244D300383A0F /* shader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = shader.h; sourceTree = "<group>"; };
-		55AA84DB204246BC00383A0F /* OBJObject.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = OBJObject.cpp; sourceTree = "<group>"; };
-		55AA84DC204246BC00383A0F /* OBJObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OBJObject.h; sourceTree = "<group>"; };
-		55AA84DE2042471900383A0F /* bunny.obj */ = {isa = PBXFileReference; lastKnownFileType = text; name = bunny.obj; path = cse167_pa3/bunny.obj; sourceTree = "<group>"; };
 		55AA84E1204252DF00383A0F /* Skybox.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Skybox.h; sourceTree = "<group>"; };
 		55AA84E22042543800383A0F /* Skybox.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = Skybox.cpp; path = ../../../../../../../../cse167/cse167_pa3/cse167_pa3/Skybox.cpp; sourceTree = BUILT_PRODUCTS_DIR; };
 		55AA84E62042591400383A0F /* skybox_shader.frag */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = skybox_shader.frag; sourceTree = "<group>"; };
@@ -97,13 +110,17 @@
 		55AA84B12042359A00383A0F = {
 			isa = PBXGroup;
 			children = (
+				552779D120456C730026D1C1 /* antenna.obj */,
+				552779D320456C730026D1C1 /* body.obj */,
+				552779D220456C730026D1C1 /* eyeball.obj */,
+				552779D420456C730026D1C1 /* head.obj */,
+				552779D520456C730026D1C1 /* limb.obj */,
 				552779AE20437AC50026D1C1 /* back.jpg */,
 				552779AD20437AC50026D1C1 /* bottom.jpg */,
 				552779B120437AC60026D1C1 /* front.jpg */,
 				552779B020437AC60026D1C1 /* left.jpg */,
 				552779B220437AC60026D1C1 /* right.jpg */,
 				552779AF20437AC50026D1C1 /* top.jpg */,
-				55AA84DE2042471900383A0F /* bunny.obj */,
 				55AA84BC2042359B00383A0F /* cse167_pa3 */,
 				55AA84BB2042359B00383A0F /* Products */,
 				55AA84C82042393B00383A0F /* Frameworks */,
@@ -121,23 +138,24 @@
 		55AA84BC2042359B00383A0F /* cse167_pa3 */ = {
 			isa = PBXGroup;
 			children = (
-				552779B920437AF20026D1C1 /* Window.cpp */,
 				55277994204298DE0026D1C1 /* stb_image.h */,
 				55AA84E62042591400383A0F /* skybox_shader.frag */,
 				55AA84E72042591400383A0F /* skybox_shader.vert */,
-				55AA84DB204246BC00383A0F /* OBJObject.cpp */,
-				55AA84DC204246BC00383A0F /* OBJObject.h */,
 				55AA84D0204244D300383A0F /* shader.cpp */,
-				55AA84D2204244D300383A0F /* shader.frag */,
 				55AA84D3204244D300383A0F /* shader.h */,
+				55AA84D2204244D300383A0F /* shader.frag */,
 				55AA84D1204244D300383A0F /* shader.vert */,
-				55AA84C62042380C00383A0F /* main.h */,
+				552779B920437AF20026D1C1 /* Window.cpp */,
 				55AA84C52042380C00383A0F /* Window.h */,
 				55AA84BD2042359B00383A0F /* main.cpp */,
+				55AA84C62042380C00383A0F /* main.h */,
 				55AA84E1204252DF00383A0F /* Skybox.h */,
 				55AA84E22042543800383A0F /* Skybox.cpp */,
-				552779BB20437D5E0026D1C1 /* Node.cpp */,
 				552779BC20437D5E0026D1C1 /* Node.h */,
+				552779BE204380F10026D1C1 /* Transform.h */,
+				552779BF204383AC0026D1C1 /* Transform.cpp */,
+				552779C12043896D0026D1C1 /* Geometry.h */,
+				552779C220438A790026D1C1 /* Geometry.cpp */,
 			);
 			path = cse167_pa3;
 			sourceTree = "<group>";
@@ -208,11 +226,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				552779C0204383AC0026D1C1 /* Transform.cpp in Sources */,
 				55AA84BE2042359B00383A0F /* main.cpp in Sources */,
 				552779BA20437AF20026D1C1 /* Window.cpp in Sources */,
 				55AA84D4204244D300383A0F /* shader.cpp in Sources */,
-				552779BD20437D5E0026D1C1 /* Node.cpp in Sources */,
-				55AA84DD204246BD00383A0F /* OBJObject.cpp in Sources */,
+				552779C320438A790026D1C1 /* Geometry.cpp in Sources */,
 				55AA84E32042543800383A0F /* Skybox.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

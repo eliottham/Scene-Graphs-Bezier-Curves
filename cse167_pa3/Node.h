@@ -17,13 +17,12 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <vector>
 #include <string>
-#include "Window.h"
 #include <stdio.h>
 
 class Node
 {
 public:
-    void draw(glm::mat4 C);
-    void update();
+    virtual void draw(glm::mat4 C) = 0;
+    //virtual void update() = 0;
 };
 #endif /* Node_h */
