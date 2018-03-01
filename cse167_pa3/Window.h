@@ -15,6 +15,7 @@
 #include "Node.h"
 #include "Transform.h"
 #include "Geometry.h"
+#include "Bezier.h"
 
 class Window
 {

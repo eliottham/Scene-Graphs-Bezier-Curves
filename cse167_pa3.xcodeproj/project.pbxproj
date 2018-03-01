@@ -20,6 +20,7 @@
 		552779D820456C740026D1C1 /* body.obj in CopyFiles */ = {isa = PBXBuildFile; fileRef = 552779D320456C730026D1C1 /* body.obj */; };
 		552779D920456C740026D1C1 /* head.obj in CopyFiles */ = {isa = PBXBuildFile; fileRef = 552779D420456C730026D1C1 /* head.obj */; };
 		552779DA20456C740026D1C1 /* limb.obj in CopyFiles */ = {isa = PBXBuildFile; fileRef = 552779D520456C730026D1C1 /* limb.obj */; };
+		552779DD20478D3B0026D1C1 /* Bezier.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 552779DC20478D3B0026D1C1 /* Bezier.cpp */; };
 		55AA84BE2042359B00383A0F /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 55AA84BD2042359B00383A0F /* main.cpp */; };
 		55AA84D4204244D300383A0F /* shader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 55AA84D0204244D300383A0F /* shader.cpp */; };
 		55AA84D9204245E300383A0F /* shader.frag in CopyFiles */ = {isa = PBXBuildFile; fileRef = 55AA84D2204244D300383A0F /* shader.frag */; };
@@ -75,6 +76,8 @@
 		552779D320456C730026D1C1 /* body.obj */ = {isa = PBXFileReference; lastKnownFileType = text; name = body.obj; path = cse167_pa3/body.obj; sourceTree = "<group>"; };
 		552779D420456C730026D1C1 /* head.obj */ = {isa = PBXFileReference; lastKnownFileType = text; name = head.obj; path = cse167_pa3/head.obj; sourceTree = "<group>"; };
 		552779D520456C730026D1C1 /* limb.obj */ = {isa = PBXFileReference; lastKnownFileType = text; name = limb.obj; path = cse167_pa3/limb.obj; sourceTree = "<group>"; };
+		552779DB204787000026D1C1 /* Bezier.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Bezier.h; sourceTree = "<group>"; };
+		552779DC20478D3B0026D1C1 /* Bezier.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Bezier.cpp; sourceTree = "<group>"; };
 		55AA84BA2042359B00383A0F /* cse167_pa3 */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = cse167_pa3; sourceTree = BUILT_PRODUCTS_DIR; };
 		55AA84BD2042359B00383A0F /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		55AA84C52042380C00383A0F /* Window.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Window.h; sourceTree = "<group>"; };
@@ -152,6 +155,8 @@
 				552779BF204383AC0026D1C1 /* Transform.cpp */,
 				552779C12043896D0026D1C1 /* Geometry.h */,
 				552779C220438A790026D1C1 /* Geometry.cpp */,
+				552779DB204787000026D1C1 /* Bezier.h */,
+				552779DC20478D3B0026D1C1 /* Bezier.cpp */,
 			);
 			path = cse167_pa3;
 			sourceTree = "<group>";
@@ -228,6 +233,7 @@
 				55AA84D4204244D300383A0F /* shader.cpp in Sources */,
 				552779C320438A790026D1C1 /* Geometry.cpp in Sources */,
 				55AA84E32042543800383A0F /* Skybox.cpp in Sources */,
+				552779DD20478D3B0026D1C1 /* Bezier.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

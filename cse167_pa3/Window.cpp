@@ -25,6 +25,8 @@ GLuint Window::robotShader;
 
 Skybox* skybox;
 Transform* squad;
+Bezier* c0;
+Bezier* c1;
 
 vector<string> skybox_faces = {
     "./right.jpg",
@@ -48,7 +50,20 @@ void Window::initialize_objects()
     glUseProgram(skyboxShader);
     glUniform1i(glGetUniformLocation(skyboxShader, "skybox"), 0);
     
-    squad = makeRobotSquad();
+    squad = new Transform(glm::translate(glm::mat4(1.0f),
+                                         glm::vec3(-75.0f, 0.0f, -150.0f)) *
+                          glm::scale(glm::mat4(1.0f), glm::vec3(0.5f)));
+    squad->addChild(makeRobotSquad());
+    
+    c0 = new Bezier(glm::vec3(20.0f, 10.0f, 38.0f),
+                    glm::vec3(10.4f, 19.2f, 18.3f),
+                    glm::vec3(39.2f, 28.5f, 28.3f),
+                    glm::vec3(45.3f, 39.9f, 36.0f));
+    
+    c1 = new Bezier(glm::vec3(20.0f, 10.0f, 38.0f),
+                    glm::vec3(32.4f, 69.2f, 18.3f),
+                    glm::vec3(12.2f, -28.5f, 28.3f),
+                    glm::vec3(-32.3f, -49.9f, 36.0f));
 
 }
 
@@ -139,7 +154,9 @@ void Window::display_callback(GLFWwindow* window)
     
 	// Use the shader of programID
     glUseProgram(Window::robotShader);
-    squad->draw(glm::mat4(1.0f));
+    //squad->draw(glm::mat4(1.0f));
+    c0->draw(robotShader);
+    c1->draw(robotShader);
     
     glDepthFunc(GL_LEQUAL);
     glUseProgram(skyboxShader);
@@ -285,28 +302,28 @@ Transform* makeRobot()
     Transform* l_arm2body = new Transform(glm::mat4(1.0f));
      
     l_arm2body->addChild(limb);
-    l_arm2body->setAnimate(1.0f, 45.0f, pivot);
+    l_arm2body->setAnimate(0.25f, 45.0f, pivot);
     body2wld->addChild(l_arm2body);
     
     // Right arm
     Transform* r_arm2body = new Transform(glm::translate(glm::mat4(1.0f),
                                                          glm::vec3(53.5f, 0.0f, 0.0f)));
     r_arm2body->addChild(limb);
-    r_arm2body->setAnimate(-1.0f, -45.0f, pivot);
+    r_arm2body->setAnimate(-0.25f, -45.0f, pivot);
     body2wld->addChild(r_arm2body);
     
     // Left leg
     Transform* l_leg2body = new Transform(glm::translate(glm::mat4(1.0f),
                                                          glm::vec3(17.5f, 0.0f, -45.0f)));
     l_leg2body->addChild(limb);
-    l_leg2body->setAnimate(1.0f, 45.0f, pivot);
+    l_leg2body->setAnimate(0.25f, 45.0f, pivot);
     body2wld->addChild(l_leg2body);
     
     // Right leg
     Transform* r_leg2body = new Transform(glm::translate(glm::mat4(1.0f),
                                                          glm::vec3(37.0f, 0.0f, -45.0f)));
     r_leg2body->addChild(limb);
-    r_leg2body->setAnimate(-1.0f, -45.0f, pivot);
+    r_leg2body->setAnimate(-0.25f, -45.0f, pivot);
     body2wld->addChild(r_leg2body);
     
     return robot;
