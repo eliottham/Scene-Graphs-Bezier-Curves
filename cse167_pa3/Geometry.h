@@ -1,3 +1,6 @@
+#ifndef Geometry_h
+#define Geometry_h
+
 #define GLFW_INCLUDE_GLEXT
 #ifdef __APPLE__
 #define GLFW_INCLUDE_GLCOREARB
@@ -17,8 +20,7 @@
 #include <string>
 #include "Node.h"
 #include "Window.h"
-#ifndef Geometry_h
-#define Geometry_h
+
 
 struct Vertex
 {

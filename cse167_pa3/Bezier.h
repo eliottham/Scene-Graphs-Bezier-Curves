@@ -35,6 +35,7 @@ public:
     ~Bezier();
     void approximateCurve();
     void draw(GLuint shaderProgram);
+    vector<glm::vec3> getVertices();
 };
 
 #endif /* Bezier_h */

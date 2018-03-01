@@ -16,6 +16,7 @@
 #include "Transform.h"
 #include "Geometry.h"
 #include "Bezier.h"
+#include "Group.h"
 
 class Window
 {

@@ -24,12 +24,9 @@ glm::mat4 Window::V;
 GLuint Window::robotShader;
 
 Skybox* skybox;
-Transform* squad;
-Bezier* bez_curve1;
-Bezier* bez_curve2;
-Bezier* bez_curve3;
-Bezier* bez_curve4;
-Bezier* bez_curve5;
+Group* squad;
+vector<Bezier*> beziers;
+vector<glm::vec3> march_path;
 
 vector<string> skybox_faces = {
     "./right.jpg",
@@ -43,7 +40,11 @@ vector<string> skybox_faces = {
 // Function declaration for creating a robot
 Transform* makeRobot();
 // Function declaration for creating a robot squad
-Transform* makeRobotSquad();
+Transform* makeRobotSquad(float spacing);
+// Function declaration for creating Bezier curves
+vector<Bezier*> makeBezierCurves();
+
+int i = 0;
 
 void Window::initialize_objects()
 {
@@ -53,37 +54,15 @@ void Window::initialize_objects()
     glUseProgram(skyboxShader);
     glUniform1i(glGetUniformLocation(skyboxShader, "skybox"), 0);
     
-    squad = new Transform(glm::translate(glm::mat4(1.0f),
-                                         glm::vec3(-75.0f, 0.0f, -150.0f)) *
-                          glm::scale(glm::mat4(1.0f), glm::vec3(0.5f)));
-    squad->addChild(makeRobotSquad());
+    squad = new Group();
+    squad->addChild(makeRobotSquad(squad->spacing));
     
-    bez_curve1 = new Bezier(glm::vec3(-103.3f, -19.4f, -183.7f),
-                            glm::vec3(-63.8f, 52.1f, -143.4f),
-                            glm::vec3(-23.3f, 56.4f, -153.0f),
-                            glm::vec3(21.3f, 19.4f, -103.7f));
+    beziers = makeBezierCurves();
     
-    bez_curve2 = new Bezier(glm::vec3(21.3f, 19.4f, -103.7f),
-                            glm::vec3(65.9f, -17.6f, -54.4f),
-                            glm::vec3(50.0f, 154.0f, -32.0f),
-                            glm::vec3(41.3f, 22.0f, -10.0f));
-    
-    bez_curve3 = new Bezier(glm::vec3(41.3f, 22.0f, -10.0f),
-                            glm::vec3(32.6f, -110.0f, 22.0f),
-                            glm::vec3(25.0f, 41.0f, -62.0f),
-                            glm::vec3(10.0f, 33.0f, 2.0f));
-    
-    bez_curve4 = new Bezier(glm::vec3(10.0f, 33.0f, 2.0f),
-                            glm::vec3(-5.0f, 25.0f, 66.0f),
-                            glm::vec3(-17.0f, -25.0f, 20.0f),
-                            glm::vec3(-37.0f, -29.0f, 12.0f));
-    
-    bez_curve5 = new Bezier(glm::vec3(-37.0f, -29.0f, 12.0f),
-                            glm::vec3(-57.0f, -33.0f, 4.0f),
-                            glm::vec3(-142.8f, -90.9f, -224.0f),
-                            glm::vec3(-103.3f, -19.4f, -183.7f));
-
-    
+    // Get the path for the squad to march on
+    for(auto it = beziers.begin(); it != beziers.end(); ++it) {
+        squad->makePath((*it)->getVertices());
+    }
 }
 
 // Treat this as a destructor function. Delete dynamically allocated memory here.
@@ -91,6 +70,10 @@ void Window::clean_up()
 {
     delete(skybox);
     delete(squad);
+    for(auto it = beziers.begin(); it != beziers.end(); ++it) {
+        delete(*it);
+    }
+    
     glDeleteProgram(Window::robotShader);
     glDeleteProgram(skyboxShader);
 }
@@ -171,15 +154,16 @@ void Window::display_callback(GLFWwindow* window)
     
     Window::V = glm::lookAt(cam_pos, cam_look_at, cam_up);
     
-	// Use the shader of programID
+	// Draw robot squad
     glUseProgram(Window::robotShader);
-    //squad->draw(glm::mat4(1.0f));
-    bez_curve1->draw(robotShader);
-    bez_curve2->draw(robotShader);
-    bez_curve3->draw(robotShader);
-    bez_curve4->draw(robotShader);
-    bez_curve5->draw(robotShader);
+    squad->draw(glm::mat4(1.0f));
     
+    // Draw bezier curves
+    for(auto it = beziers.begin(); it != beziers.end(); ++it) {
+        (*it)->draw(robotShader);
+    }
+    
+    // Draw skybox
     glDepthFunc(GL_LEQUAL);
     glUseProgram(skyboxShader);
     skybox->draw(skyboxShader);
@@ -202,6 +186,16 @@ void Window::key_callback(GLFWwindow* window, int key, int scancode, int action,
 			// Close the window. This causes the program to also terminate.
 			glfwSetWindowShouldClose(window, GL_TRUE);
 		}
+        
+        // Scale the grid of robots with s/S
+        if (key == GLFW_KEY_S) {
+            if(mods == GLFW_MOD_SHIFT) {
+                squad->changeScale(0.1f);
+            }
+            else {
+                squad->changeScale(-0.1f);
+            }
+        }
 	}
 }
 
@@ -351,22 +345,52 @@ Transform* makeRobot()
     return robot;
 }
 
-Transform* makeRobotSquad()
+Transform* makeRobotSquad(float spacing)
 {
-    Transform* group = new Transform(glm::mat4(1.0f));
+    Transform* grid = new Transform(glm::mat4(1.0f));
     Transform* robot = makeRobot();
+    
     // Create a 5 x 5 squad of robots
-    float x_dist = 75.0f;
-    float z_dist = 75.0f;
     for(unsigned int i = 0; i < 5; i++) {
         for(unsigned int j = 0; j < 5; j++) {
             Transform* temp = new Transform(glm::translate(glm::mat4(1.0f),
-                                                           glm::vec3((float) i * x_dist,
+                                                           glm::vec3((float) i * spacing,
                                                                      0.0f,
-                                                                     (float) j * z_dist)));
+                                                                     (float) j * spacing)));
             temp->addChild(robot);
-            group->addChild(temp);
+            grid->addChild(temp);
         }
     }
-    return group;
+    return grid;
+}
+
+vector<Bezier*> makeBezierCurves()
+{
+    vector<Bezier*> bezier_curves;
+    
+    bezier_curves.push_back(new Bezier(glm::vec3(-103.3f, -19.4f, -183.7f),
+                                       glm::vec3(-63.8f, 52.1f, -143.4f),
+                                       glm::vec3(-23.3f, 56.4f, -153.0f),
+                                       glm::vec3(21.3f, 19.4f, -103.7f)));
+    
+    bezier_curves.push_back(new Bezier(glm::vec3(21.3f, 19.4f, -103.7f),
+                                       glm::vec3(65.9f, -17.6f, -54.4f),
+                                       glm::vec3(50.0f, 154.0f, -32.0f),
+                                       glm::vec3(41.3f, 22.0f, -10.0f)));
+    
+    bezier_curves.push_back(new Bezier(glm::vec3(41.3f, 22.0f, -10.0f),
+                                       glm::vec3(32.6f, -110.0f, 22.0f),
+                                       glm::vec3(25.0f, 41.0f, -62.0f),
+                                       glm::vec3(10.0f, 33.0f, 2.0f)));
+    
+    bezier_curves.push_back(new Bezier(glm::vec3(10.0f, 33.0f, 2.0f),
+                                       glm::vec3(-5.0f, 25.0f, 66.0f),
+                                       glm::vec3(-17.0f, -25.0f, 20.0f),
+                                       glm::vec3(-37.0f, -29.0f, 12.0f)));
+    
+    bezier_curves.push_back(new Bezier(glm::vec3(-37.0f, -29.0f, 12.0f),
+                                       glm::vec3(-57.0f, -33.0f, 4.0f),
+                                       glm::vec3(-142.8f, -90.9f, -224.0f),
+                                       glm::vec3(-103.3f, -19.4f, -183.7f)));
+    return bezier_curves;
 }

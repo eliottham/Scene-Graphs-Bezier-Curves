@@ -61,3 +61,8 @@ void Bezier::draw(GLuint shaderProgram)
     glDrawArrays(GL_LINES, 0, N_CURVES);
     glBindVertexArray(0);
 }
+
+vector<glm::vec3> Bezier::getVertices()
+{
+    return vertices;
+}
