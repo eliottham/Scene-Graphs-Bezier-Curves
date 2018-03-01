@@ -25,8 +25,11 @@ GLuint Window::robotShader;
 
 Skybox* skybox;
 Transform* squad;
-Bezier* c0;
-Bezier* c1;
+Bezier* bez_curve1;
+Bezier* bez_curve2;
+Bezier* bez_curve3;
+Bezier* bez_curve4;
+Bezier* bez_curve5;
 
 vector<string> skybox_faces = {
     "./right.jpg",
@@ -55,16 +58,32 @@ void Window::initialize_objects()
                           glm::scale(glm::mat4(1.0f), glm::vec3(0.5f)));
     squad->addChild(makeRobotSquad());
     
-    c0 = new Bezier(glm::vec3(20.0f, 10.0f, 38.0f),
-                    glm::vec3(10.4f, 19.2f, 18.3f),
-                    glm::vec3(39.2f, 28.5f, 28.3f),
-                    glm::vec3(45.3f, 39.9f, 36.0f));
+    bez_curve1 = new Bezier(glm::vec3(-103.3f, -19.4f, -183.7f),
+                            glm::vec3(-63.8f, 52.1f, -143.4f),
+                            glm::vec3(-23.3f, 56.4f, -153.0f),
+                            glm::vec3(21.3f, 19.4f, -103.7f));
     
-    c1 = new Bezier(glm::vec3(20.0f, 10.0f, 38.0f),
-                    glm::vec3(32.4f, 69.2f, 18.3f),
-                    glm::vec3(12.2f, -28.5f, 28.3f),
-                    glm::vec3(-32.3f, -49.9f, 36.0f));
+    bez_curve2 = new Bezier(glm::vec3(21.3f, 19.4f, -103.7f),
+                            glm::vec3(65.9f, -17.6f, -54.4f),
+                            glm::vec3(50.0f, 154.0f, -32.0f),
+                            glm::vec3(41.3f, 22.0f, -10.0f));
+    
+    bez_curve3 = new Bezier(glm::vec3(41.3f, 22.0f, -10.0f),
+                            glm::vec3(32.6f, -110.0f, 22.0f),
+                            glm::vec3(25.0f, 41.0f, -62.0f),
+                            glm::vec3(10.0f, 33.0f, 2.0f));
+    
+    bez_curve4 = new Bezier(glm::vec3(10.0f, 33.0f, 2.0f),
+                            glm::vec3(-5.0f, 25.0f, 66.0f),
+                            glm::vec3(-17.0f, -25.0f, 20.0f),
+                            glm::vec3(-37.0f, -29.0f, 12.0f));
+    
+    bez_curve5 = new Bezier(glm::vec3(-37.0f, -29.0f, 12.0f),
+                            glm::vec3(-57.0f, -33.0f, 4.0f),
+                            glm::vec3(-142.8f, -90.9f, -224.0f),
+                            glm::vec3(-103.3f, -19.4f, -183.7f));
 
+    
 }
 
 // Treat this as a destructor function. Delete dynamically allocated memory here.
@@ -155,8 +174,11 @@ void Window::display_callback(GLFWwindow* window)
 	// Use the shader of programID
     glUseProgram(Window::robotShader);
     //squad->draw(glm::mat4(1.0f));
-    c0->draw(robotShader);
-    c1->draw(robotShader);
+    bez_curve1->draw(robotShader);
+    bez_curve2->draw(robotShader);
+    bez_curve3->draw(robotShader);
+    bez_curve4->draw(robotShader);
+    bez_curve5->draw(robotShader);
     
     glDepthFunc(GL_LEQUAL);
     glUseProgram(skyboxShader);
@@ -335,7 +357,7 @@ Transform* makeRobotSquad()
     Transform* robot = makeRobot();
     // Create a 5 x 5 squad of robots
     float x_dist = 75.0f;
-    float z_dist = 75.0f; // y_dist is z-depth due to original orientation of robot
+    float z_dist = 75.0f;
     for(unsigned int i = 0; i < 5; i++) {
         for(unsigned int j = 0; j < 5; j++) {
             Transform* temp = new Transform(glm::translate(glm::mat4(1.0f),
