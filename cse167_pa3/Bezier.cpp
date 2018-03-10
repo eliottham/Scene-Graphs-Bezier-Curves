@@ -58,7 +58,7 @@ void Bezier::draw(GLuint shaderProgram)
     glUniformMatrix4fv(uModelview, 1, GL_FALSE, &Window::V[0][0]);
 
     glBindVertexArray(VAO);
-    glDrawArrays(GL_LINES, 0, N_CURVES);
+    glDrawArrays(GL_LINE_STRIP, 0, N_CURVES);
     glBindVertexArray(0);
 }
 

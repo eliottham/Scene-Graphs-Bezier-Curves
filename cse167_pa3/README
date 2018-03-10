@@ -1,0 +1,5 @@
+This project focuses on implementing scene graphs, skyboxes, and Bezier Curves.
+I used OpenGL to create a scene graph engine in which I could create instances
+of a robot model. I animated a 5 x 5 grid of these instances to march along a
+Bezier Curve made up of 5 independent Bezier Curves which were approximated with
+150 straight line segments each.
